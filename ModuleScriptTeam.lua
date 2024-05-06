@@ -3,14 +3,14 @@ team.__index = team
 local BlueTeamTouched = false
 local RedTeamTouched = false
 
-function team.ChangeNameCaptrue(value)
+function team.ChangeNameCaptrue(value) --Change team name capture
 	if game.Players[value].Team == game.Teams:WaitForChild("Blue") then
 		game.ReplicatedStorage.FlagCaptrue.RedFlagCaptrue.Value = value
 	else
 		game.ReplicatedStorage.FlagCaptrue.BlueFlagCaptrue.Value = value
 	end
 end
-function team.GetValues()
+function team.GetValues() --Make new object round or scoreboard function
 	local self = {}
 	local sss = game.ReplicatedStorage.Points
 	self.Red = sss.RedTeam
@@ -18,11 +18,11 @@ function team.GetValues()
 	return setmetatable(self, team)
 end 
 
-function team:IncreasePoints(teamname, num)
+function team:IncreasePoints(teamname, num) --increase score for selected team
 	self[teamname].Value += num
 end
 
-local function getPlayerFromCharacter(character)
+local function getPlayerFromCharacter(character) --get player  by  character
 	for _, player in pairs(game:GetService("Players"):GetPlayers()) do
 		if player.Character == character then
 			return player
@@ -30,7 +30,7 @@ local function getPlayerFromCharacter(character)
 	end
 end
 
-function team.PlayerLeft()
+function team.PlayerLeft() -- check if player left game
 	game.Players.PlayerRemoving:Connect(function(plr)
 		local blueflag = game.Workspace.Blueland.BlueFlag
 		local redflag = game.Workspace.Redland.RedFlag
@@ -55,7 +55,7 @@ function team.PlayerLeft()
 		
 	end)
 end
-function team.CheckPlayerFlagDied()
+function team.CheckPlayerFlagDied() -- check if player died
 	local blueflag = game.Workspace.Blueland.BlueFlag
 	local redflag = game.Workspace.Redland.RedFlag
 	game.Players.PlayerAdded:Connect(function(plr)
@@ -129,7 +129,7 @@ function team.CheckPlayerFlagDied()
 end
 
 --------------------------------MainSystem
-function team.Start(teamname1,teamname2)
+function team.Start(teamname1,teamname2)--start create part spawn and flags and teams
 	local redteam , blueteam = Instance.new("Team", game.Teams), Instance.new("Team",game.Teams)
 	redteam.Name = teamname1
 	blueteam.Name = teamname2
@@ -157,7 +157,7 @@ function team.Start(teamname1,teamname2)
 	----Touched
 end
 
-function team.FlagTouch ()
+function team.FlagTouch () -- check if got touched by players
 	local blueflag = game.Workspace.Blueland.BlueFlag
 	local redflag = game.Workspace.Redland.RedFlag
 	local Blueland = game.Workspace.Blueland.Union
